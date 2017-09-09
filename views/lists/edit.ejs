@@ -1,0 +1,13 @@
+<h1>Edit</h1>
+<form method="POST" action="/lists/<%= list.id %>">
+  <label for="name">Name</label>
+  <input type="text" name="name" id="name" value="<%= list.name %>">
+  <ul>
+    <% list.entries.forEach(entry => { %>
+      <li>
+        <label for="<%= entry.id %>">Entry</label>
+        <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>">
+      </li>
+    <% }) %>
+  </ul>
+</form>

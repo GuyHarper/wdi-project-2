@@ -7,4 +7,6 @@ router.get('/lists', lists.index);
 
 router.get('/lists/:id', lists.show);
 
+router.get('/lists/:id/edit', lists.edit);
+
 module.exports = router;

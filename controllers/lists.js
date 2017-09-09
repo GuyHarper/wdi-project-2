@@ -16,7 +16,16 @@ function listsShow(req, res) {
     .catch(err => res.render('error', { err }));
 }
 
+function listsEdit(req, res) {
+  List
+    .findById(req.params.id)
+    .exec()
+    .then(list => res.render('lists/edit', { list }))
+    .catch(err => res.render('error', { err }));
+}
+
 module.exports = {
   index: listsIndex,
-  show: listsShow
+  show: listsShow,
+  edit: listsEdit
 };
