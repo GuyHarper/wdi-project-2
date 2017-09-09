@@ -24,8 +24,21 @@ function listsEdit(req, res) {
     .catch(err => res.render('error', { err }));
 }
 
+function listsUpdate(req, res) {
+  List
+    .findById(req.params.id)
+    .exec()
+    .then(list => {
+      list = Object.assign( list, req.body);
+      return list.save();
+    })
+    .then(list => res.redirect(`/lists/${list.id}`))
+    .catch(err => res.render('error', { err }));
+}
+
 module.exports = {
   index: listsIndex,
   show: listsShow,
-  edit: listsEdit
+  edit: listsEdit,
+  update: listsUpdate
 };
