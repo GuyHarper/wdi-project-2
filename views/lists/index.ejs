@@ -1,3 +1,4 @@
+<h1>Lists</h1>
 <% lists.forEach(list => { %>
-  <h1><%= list.name %></h1>
+  <h2><a href="/lists/<%= list.id %>"><%= list.name %></a></h2>
 <% }) %>

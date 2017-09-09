@@ -5,9 +5,18 @@ function listsIndex(req, res) {
     .find()
     .exec()
     .then(lists => res.render('lists/index', { lists }))
-    .catch(err => res.render('error', {err}));
+    .catch(err => res.render('error', { err }));
+}
+
+function listsShow(req, res) {
+  List
+    .findById(req.params.id)
+    .exec()
+    .then(list => res.render('lists/show', { list }))
+    .catch(err => res.render('error', { err }));
 }
 
 module.exports = {
-  index: listsIndex
+  index: listsIndex,
+  show: listsShow
 };
