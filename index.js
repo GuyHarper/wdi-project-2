@@ -4,6 +4,7 @@ const { port, dbURI } = require('./config/environment');
 const expressLayouts  = require('express-ejs-layouts');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const routes = require('./config/routes');
 
 mongoose.connect(dbURI, { useMongoClient: true });
 
@@ -14,6 +15,6 @@ app.use(expressLayouts);
 app.use(express.static(`${__dirname}/public`));
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => res.render('home'));
+app.use(routes);
 
 app.listen(port, () => console.log(`Express is listening on port ${port}`));
