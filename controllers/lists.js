@@ -109,6 +109,21 @@ function entriesCommentsCreate(req, res) {
     .catch(err => res.render('error', { err }));
 }
 
+function entriesCommentsDelete(req, res) {
+  List
+    .findById(req.params.id)
+    .exec()
+    .then(list => {
+      const entry = list.entries.id(req.params.entryId);
+      const comment = entry.comments.id(req.params.commentId);
+      comment.remove();
+      return list.save();
+    })
+    .then(list => res.redirect(`/lists/${list.id}`))
+    .catch(err => res.render('error', { err }));
+}
+
+
 module.exports = {
   index: listsIndex,
   show: listsShow,
@@ -120,5 +135,6 @@ module.exports = {
   entriesCreate: listsEntriesCreate,
   entriesDelete: listsEntriesDelete,
   entriesUpdate: listsEntriesUpdate,
-  commentsCreate: entriesCommentsCreate
+  commentsCreate: entriesCommentsCreate,
+  commentsDelete: entriesCommentsDelete
 };

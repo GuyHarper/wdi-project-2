@@ -24,4 +24,6 @@ router.route('/lists/:id/entries/:entryId')
 
 router.put('/lists/:id/entries/:entryId/comments', lists.commentsCreate);
 
+router.delete('/lists/:id/entries/:entryId/comments/:commentId', lists.commentsDelete);
+
 module.exports = router;
