@@ -47,11 +47,23 @@ function listsCreate(req, res) {
     .catch(err => res.render('error', { err }));
 }
 
+function listsDelete(req, res) {
+  List
+    .findById(req.params.id)
+    .exec()
+    .then(list => {
+      return list.remove();
+    })
+    .then(() => res.redirect('/lists'))
+    .catch(err => res.render('error', { err }));
+}
+
 module.exports = {
   index: listsIndex,
   show: listsShow,
   edit: listsEdit,
   update: listsUpdate,
   new: listsNew,
-  create: listsCreate
+  create: listsCreate,
+  delete: listsDelete
 };

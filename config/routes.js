@@ -11,7 +11,8 @@ router.get('/lists/new', lists.new);
 
 router.route('/lists/:id')
   .get(lists.show)
-  .put(lists.update);
+  .put(lists.update)
+  .delete(lists.delete);
 
 router.get('/lists/:id/edit', lists.edit);
 

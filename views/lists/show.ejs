@@ -4,3 +4,8 @@
     <li><%= entry.text %> </li>
   <% }) %>
 </ul>
+
+<form method="POST" action="/lists/<%= list.id %>">
+  <input type="hidden" name="_method" value="DELETE">
+  <button>Delete</button>
+</form>
