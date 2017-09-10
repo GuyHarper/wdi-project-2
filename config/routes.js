@@ -5,6 +5,8 @@ router.get('/', (req, res) => res.render('home'));
 
 router.get('/lists', lists.index);
 
+router.get('/lists/new', lists.new);
+
 router.route('/lists/:id')
   .get(lists.show)
   .put(lists.update);

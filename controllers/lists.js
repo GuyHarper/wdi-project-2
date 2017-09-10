@@ -36,9 +36,14 @@ function listsUpdate(req, res) {
     .catch(err => res.render('error', { err }));
 }
 
+function listsNew(req, res) {
+  res.render('lists/new');
+}
+
 module.exports = {
   index: listsIndex,
   show: listsShow,
   edit: listsEdit,
-  update: listsUpdate
+  update: listsUpdate,
+  new: listsNew
 };
