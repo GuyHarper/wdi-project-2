@@ -12,6 +12,10 @@
     <li>
       <label for="<%= entry.id %>">Entry</label>
       <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>">
+      <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>">
+        <input type="hidden" name="_method" value="DELETE">
+        <button>Delete</button>
+      </form>
     </li>
   <% }) %>
 </ul>
