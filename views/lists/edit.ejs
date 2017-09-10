@@ -14,7 +14,7 @@
         <input type="hidden" name="_method" value="PUT">
         <label for="<%= entry.id %>">Entry</label>
         <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>">
-        <button>Update entry</button>
+        <button>Edit entry</button>
       </form>
       <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>">
         <input type="hidden" name="_method" value="DELETE">
