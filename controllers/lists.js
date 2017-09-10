@@ -89,9 +89,20 @@ function listsEntriesUpdate(req, res) {
     .exec()
     .then(list => {
       let entry = list.entries.id(req.params.entryId);
-      console.log(entry);
       entry = Object.assign( entry, req.body );
-      console.log(entry);
+      return list.save();
+    })
+    .then(list => res.redirect(`/lists/${list.id}`))
+    .catch(err => res.render('error', { err }));
+}
+
+function entriesCommentsCreate(req, res) {
+  List
+    .findById(req.params.id)
+    .exec()
+    .then(list => {
+      const entry = list.entries.id(req.params.entryId);
+      entry.comments.push(req.body);
       return list.save();
     })
     .then(list => res.redirect(`/lists/${list.id}`))
@@ -108,5 +119,6 @@ module.exports = {
   delete: listsDelete,
   entriesCreate: listsEntriesCreate,
   entriesDelete: listsEntriesDelete,
-  entriesUpdate: listsEntriesUpdate
+  entriesUpdate: listsEntriesUpdate,
+  commentsCreate: entriesCommentsCreate
 };

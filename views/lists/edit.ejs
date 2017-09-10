@@ -10,15 +10,26 @@
 <ul>
   <% list.entries.forEach(entry => { %>
     <li>
-    <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>">
-    <input type="hidden" name="_method" value="PUT">
-      <label for="<%= entry.id %>">Entry</label>
-      <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>">
-      <button>Update entry</button>
-    </form>
+      <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>">
+        <input type="hidden" name="_method" value="PUT">
+        <label for="<%= entry.id %>">Entry</label>
+        <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>">
+        <button>Update entry</button>
+      </form>
       <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>">
         <input type="hidden" name="_method" value="DELETE">
         <button>Delete</button>
+      </form>
+      <ul>
+      <% entry.comments.forEach(comment => { %>
+        <li><%= comment.text %></li>
+      <% }) %>
+      </ul>
+      <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments">
+        <input type="hidden" name="_method" value="PUT">
+        <label for="new-comment">Comment</label>
+        <input type="text" name="text" id="new-comment">
+        <button>Add Comment</button>
       </form>
     </li>
   <% }) %>
