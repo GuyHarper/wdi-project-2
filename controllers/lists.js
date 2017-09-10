@@ -40,10 +40,18 @@ function listsNew(req, res) {
   res.render('lists/new');
 }
 
+function listsCreate(req, res) {
+  List
+    .create(req.body)
+    .then(() => res.redirect('/lists'))
+    .catch(err => res.render('error', { err }));
+}
+
 module.exports = {
   index: listsIndex,
   show: listsShow,
   edit: listsEdit,
   update: listsUpdate,
-  new: listsNew
+  new: listsNew,
+  create: listsCreate
 };

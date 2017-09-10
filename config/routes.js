@@ -3,7 +3,9 @@ const lists = require('../controllers/lists');
 
 router.get('/', (req, res) => res.render('home'));
 
-router.get('/lists', lists.index);
+router.route('/lists')
+  .get(lists.index)
+  .post(lists.create);
 
 router.get('/lists/new', lists.new);
 
