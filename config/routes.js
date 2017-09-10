@@ -16,4 +16,6 @@ router.route('/lists/:id')
 
 router.get('/lists/:id/edit', lists.edit);
 
+router.put('/lists/:id/entries', lists.entriesCreate);
+
 module.exports = router;

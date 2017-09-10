@@ -3,13 +3,22 @@
   <input type="hidden" name="_method" value="PUT">
   <label for="name">Name</label>
   <input type="text" name="name" id="name" value="<%= list.name %>">
-  <ul>
-    <% list.entries.forEach(entry => { %>
-      <li>
-        <label for="<%= entry.id %>">Entry</label>
-        <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>">
-      </li>
-    <% }) %>
-  </ul>
-  <button>Update</button>
+  <button>Update name</button>
+</form>
+
+
+<ul>
+  <% list.entries.forEach(entry => { %>
+    <li>
+      <label for="<%= entry.id %>">Entry</label>
+      <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>">
+    </li>
+  <% }) %>
+</ul>
+
+<form method="POST" action="/lists/<%= list.id %>/entries">
+  <input type="hidden" name="_method" value="PUT">
+  <label for="new-entry">Entry</label>
+  <input type="text" name="text" id="new-entry">
+  <button>Add entry</button>
 </form>

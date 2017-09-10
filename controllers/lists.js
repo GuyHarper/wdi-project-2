@@ -58,6 +58,18 @@ function listsDelete(req, res) {
     .catch(err => res.render('error', { err }));
 }
 
+function listsEntriesCreate(req, res) {
+  List
+    .findById(req.params.id)
+    .exec()
+    .then(list => {
+      list.entries.push(req.body);
+      return list.save();
+    })
+    .then(list => res.redirect(`/lists/${list.id}`))
+    .catch(err => res.render('error', { err }));
+}
+
 module.exports = {
   index: listsIndex,
   show: listsShow,
@@ -65,5 +77,6 @@ module.exports = {
   update: listsUpdate,
   new: listsNew,
   create: listsCreate,
-  delete: listsDelete
+  delete: listsDelete,
+  entriesCreate: listsEntriesCreate
 };
