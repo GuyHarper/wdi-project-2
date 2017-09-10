@@ -29,7 +29,7 @@ function listsUpdate(req, res) {
     .findById(req.params.id)
     .exec()
     .then(list => {
-      list = Object.assign( list, req.body);
+      list = Object.assign( list, req.body );
       return list.save();
     })
     .then(list => res.redirect(`/lists/${list.id}`))
@@ -83,6 +83,21 @@ function listsEntriesDelete(req, res) {
     .catch(err => res.render('error', { err }));
 }
 
+function listsEntriesUpdate(req, res) {
+  List
+    .findById(req.params.id)
+    .exec()
+    .then(list => {
+      let entry = list.entries.id(req.params.entryId);
+      console.log(entry);
+      entry = Object.assign( entry, req.body );
+      console.log(entry);
+      return list.save();
+    })
+    .then(list => res.redirect(`/lists/${list.id}`))
+    .catch(err => res.render('error', { err }));
+}
+
 module.exports = {
   index: listsIndex,
   show: listsShow,
@@ -92,5 +107,6 @@ module.exports = {
   create: listsCreate,
   delete: listsDelete,
   entriesCreate: listsEntriesCreate,
-  entriesDelete: listsEntriesDelete
+  entriesDelete: listsEntriesDelete,
+  entriesUpdate: listsEntriesUpdate
 };

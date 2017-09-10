@@ -18,6 +18,8 @@ router.get('/lists/:id/edit', lists.edit);
 
 router.put('/lists/:id/entries', lists.entriesCreate);
 
-router.delete('/lists/:id/entries/:entryId', lists.entriesDelete);
+router.route('/lists/:id/entries/:entryId')
+  .delete(lists.entriesDelete)
+  .put(lists.entriesUpdate);
 
 module.exports = router;
