@@ -1,4 +1,9 @@
-<h1>Lists</h1>
-<% lists.forEach(list => { %>
-  <h2><a href="/lists/<%= list.id %>"><%= list.name %></a></h2>
-<% }) %>
+<section class="container content">
+
+  <h1>Lists</h1>
+  
+  <% lists.forEach(list => { %>
+    <h2><a href="/lists/<%= list.id %>"><%= list.name %></a></h2>
+  <% }) %>
+
+</section>

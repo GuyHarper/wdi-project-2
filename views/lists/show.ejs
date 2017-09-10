@@ -1,12 +1,18 @@
-<h1><%= list.name %></h1>
-<ul>
-  <% list.entries.forEach(entry => { %>
-    <li><%= entry.text %> </li>
-  <% }) %>
-</ul>
+<section class="container content">
 
-<a href="/lists/<%= list.id %>/edit" class="button">Edit</a>
-<form method="POST" action="/lists/<%= list.id %>">
-  <input type="hidden" name="_method" value="DELETE">
-  <button>Delete</button>
-</form>
+  <h1 class=><%= list.name %></h1>
+
+  <ul>
+    <% list.entries.forEach(entry => { %>
+      <li><%= entry.text %> </li>
+    <% }) %>
+  </ul>
+
+  <a href="/lists/<%= list.id %>/edit" class="button">Edit</a>
+
+  <form method="POST" action="/lists/<%= list.id %>">
+    <input type="hidden" name="_method" value="DELETE">
+    <button class="button">Delete</button>
+  </form>
+
+</section>

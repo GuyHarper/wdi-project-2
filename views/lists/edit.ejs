@@ -1,47 +1,79 @@
-<h1>Edit</h1>
-<form method="POST" action="/lists/<%= list.id %>">
-  <input type="hidden" name="_method" value="PUT">
-  <label for="name">Name</label>
-  <input type="text" name="name" id="name" value="<%= list.name %>">
-  <button>Update name</button>
-</form>
-
-
-<ul>
-  <% list.entries.forEach(entry => { %>
-    <li>
-      <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>">
-        <input type="hidden" name="_method" value="PUT">
-        <label for="<%= entry.id %>">Entry</label>
-        <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>">
-        <button>Edit entry</button>
-      </form>
-      <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>">
-        <input type="hidden" name="_method" value="DELETE">
-        <button>Delete</button>
-      </form>
-      <ul>
-      <% entry.comments.forEach(comment => { %>
-        <li><%= comment.text %></li>
-        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments/<%= comment.id %>">
-          <input type="hidden" name="_method" value="DELETE">
-          <button>Delete</button>
+<section class="container content">
+  <h1>Edit</h1>
+  <form method="POST" action="/lists/<%= list.id %>">
+    <input type="hidden" name="_method" value="PUT">
+    <label for="name" hidden>Name</label>
+    <input type="text" name="name" id="name" value="<%= list.name %>" class="input is-large" autocomplete="off">
+    <button>Update name</button>
+  </form>
+  <ul>
+    <% list.entries.forEach(entry => { %>
+      <div class="columns">
+      <li class="card column is-half">
+      <div class="columns is-multiline is-mobile">
+        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column is-half">
+        <div class="columns is-mobile">
+          <input type="hidden" name="_method" value="PUT">
+          <div class="field column">
+            <div class="control">
+              <label for="<%= entry.id %>" hidden>Entry</label>
+              <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>" class="input is-medium" autocomplete="off">
+            </div>
+          </div>
+          <div class="column is-narrow">
+          <button class="button">Update</button>
+          </div>
+          </div>
         </form>
-      <% }) %>
-      </ul>
-      <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments">
+        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column is-narrow">
+          <input type="hidden" name="_method" value="DELETE">
+          <button class="button">Delete</button>
+        </form>
+        </div>
+        <ul>
+          <% entry.comments.forEach(comment => { %>
+            <li class="columns is-multiline is-mobile">
+              <div class="column is-narrow">
+                <%= comment.text %>
+              </div>
+              <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments/<%= comment.id %>" class="column is-narrow">
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="button">Delete</button>
+              </form>
+            </li>
+          <% }) %>
+          <li class="columns" hidden>
+          <div class="column is-three-quarters">
+            <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments" class="columns is-multiline is-mobile">
+              <input type="hidden" name="_method" value="PUT">
+              <div class="control column">
+                <label for="new-comment" hidden>Comment</label>
+                <input type="text" name="text" id="new-comment" autocomplete="off" class="input comment-input is-small">
+              </div>
+              <div class="column is-narrow">
+              <button class="button is-small">Add Comment</button>
+              </div>
+            </form>
+            </div>
+          </li>
+        </ul>
+
+      </li>
+</div>
+    <% }) %>
+    <div class="columns">
+    <li class="card column is-half">
+      <form method="POST" action="/lists/<%= list.id %>/entries" class="columns is-multiline is-mobile">
         <input type="hidden" name="_method" value="PUT">
-        <label for="new-comment">Comment</label>
-        <input type="text" name="text" id="new-comment">
-        <button>Add Comment</button>
+        <div class="control column">
+        <label for="new-entry" hidden>Entry</label>
+        <input type="text" name="text" id="new-entry" autocomplete="off" class="input is-medium">
+      </div>
+      <div class="column is-narrow">
+        <button class="button">Add entry</button>
+      </div>
       </form>
     </li>
-  <% }) %>
-</ul>
-
-<form method="POST" action="/lists/<%= list.id %>/entries">
-  <input type="hidden" name="_method" value="PUT">
-  <label for="new-entry">Entry</label>
-  <input type="text" name="text" id="new-entry">
-  <button>Add entry</button>
-</form>
+  </div>
+  </ul>
+</section>
