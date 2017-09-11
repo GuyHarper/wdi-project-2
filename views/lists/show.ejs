@@ -44,15 +44,15 @@
           <% }) %>
           <li class="columns">
             <div class="column is-three-quarters">
-              <button class="button is-small comment-id-<%= entry.id %> add-comment-button">Add comment</button>
-              <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments" class="columns is-multiline is-mobile comment-id-<%= entry.id %> hidden comment-form">
+              <button class="button is-small entry-id-<%= entry.id %> add-comment-button">Add comment</button>
+              <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments" class="columns is-multiline is-mobile entry-id-<%= entry.id %> hidden comment-form">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="control column">
                   <label for="new-comment" hidden>Comment</label>
-                  <input type="text" name="text" id="new-comment" autocomplete="off" class="input comment-id-<%= entry.id %> comment-input is-small" placeholder="Add comment">
+                  <input type="text" name="text" id="new-comment" autocomplete="off" class="input entry-id-<%= entry.id %> comment-input is-small" placeholder="Add comment">
                 </div>
                 <div class="column is-narrow">
-                  <button class="button is-small comment-id-<%= entry.id %> comment-button">Add</button>
+                  <button class="button is-small entry-id-<%= entry.id %> comment-button">Add</button>
                 </div>
               </form>
             </div>
@@ -68,10 +68,10 @@
         <input type="hidden" name="_method" value="PUT">
         <div class="control column">
         <label for="new-entry" hidden>Entry</label>
-        <input type="text" name="text" id="new-entry" autocomplete="off" class="input is-medium">
+        <input type="text" name="text" id="new-entry" autocomplete="off" class="input is-medium" placeholder="Add entry">
       </div>
       <div class="column is-narrow">
-        <button class="button">Add entry</button>
+        <button class="button">Add</button>
       </div>
       </form>
     </li>

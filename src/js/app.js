@@ -5,7 +5,7 @@ let commentId = null;
 $addCommentButton.on('click',(e) => {
   const arrayOfClasses = $(e.target).attr('class').split(' ');
   arrayOfClasses.forEach(function($class) {
-    if($class.match(/comment-id-*/)) {
+    if($class.match(/entry-id-*/)) {
       commentId = $class;
       console.log(commentId);
     }
