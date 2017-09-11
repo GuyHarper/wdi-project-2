@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const lists = require('../controllers/lists');
 const registrations = require('../controllers/registrations');
+const sessions = require('../controllers/sessions');
 
 router.get('/', (req, res) => res.render('home'));
 
@@ -28,7 +29,11 @@ router.put('/lists/:id/entries/:entryId/comments', lists.commentsCreate);
 router.delete('/lists/:id/entries/:entryId/comments/:commentId', lists.commentsDelete);
 
 router.route('/register')
-  .post(registrations.create)
-  .get(registrations.new);
+  .get(registrations.new)
+  .post(registrations.create);
+
+router.route('/login')
+  .get(sessions.new)
+  .post(sessions.create);
 
 module.exports = router;
