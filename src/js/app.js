@@ -1,21 +1,25 @@
+const $addCommentButton = $('.add-comment-button');
 const $commentInput = $('.comment-input');
 let commentId = null;
 
-$commentInput.on('focus',() => {
-
-  const arrayOfClasses = $commentInput.attr('class').split(' ');
-  arrayOfClasses.forEach(function(element) {
-    if(element.match(/comment-id-*/)) {
-      commentId = element;
+$addCommentButton.on('click',(e) => {
+  const arrayOfClasses = $(e.target).attr('class').split(' ');
+  arrayOfClasses.forEach(function($class) {
+    if($class.match(/comment-id-*/)) {
+      commentId = $class;
+      console.log(commentId);
     }
   });
-  const $commentButton = $(`.comment-button.${commentId}`);
-  $commentButton.removeClass('hidden');
+  $(e.target).addClass('hidden');
+  const $commentForm = $(`.comment-form.${commentId}`);
+  $commentForm.removeClass('hidden');
+  $commentInput.focus();
 });
 
 $commentInput.on('blur',() => {
   if($commentInput.val() === '') {
-    const $commentButton = $(`.comment-button.${commentId}`);
-    $commentButton.addClass('hidden');
+    const $commentForm = $(`.comment-form.${commentId}`);
+    $commentForm.addClass('hidden');
+    $addCommentButton.removeClass('hidden');
   }
 });

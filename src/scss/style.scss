@@ -17,10 +17,23 @@ input.input {
       }
 }
 
+.add-comment-button {
+  border: none;
+  color: #7a7a7a;
+  padding-left: .625em;
+  &:hover {
+    color: #7a7a7a;
+  }
+}
+
+
 .card {
   margin-bottom: 20px;
 }
 
 .hidden {
+  display: none;
+  &.comment-form {
     display: none;
+  }
 }
