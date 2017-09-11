@@ -48,10 +48,10 @@
                 <input type="hidden" name="_method" value="PUT">
                 <div class="control column">
                   <label for="new-comment" hidden>Comment</label>
-                  <input type="text" name="text" id="new-comment" autocomplete="off" class="input comment-input is-small" placeholder="Add comment">
+                  <input type="text" name="text" id="new-comment" autocomplete="off" class="input comment-id-<%= entry.id %> comment-input is-small" placeholder="Add comment">
                 </div>
                 <div class="column is-narrow">
-                  <button class="button is-small comment-button hidden">Add Comment</button>
+                  <button class="button is-small comment-id-<%= entry.id %> comment-button hidden">Add</button>
                 </div>
               </form>
             </div>
