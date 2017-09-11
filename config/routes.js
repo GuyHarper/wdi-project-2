@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const lists = require('../controllers/lists');
+const registrations = require('../controllers/registrations');
 
 router.get('/', (req, res) => res.render('home'));
 
@@ -25,5 +26,9 @@ router.route('/lists/:id/entries/:entryId')
 router.put('/lists/:id/entries/:entryId/comments', lists.commentsCreate);
 
 router.delete('/lists/:id/entries/:entryId/comments/:commentId', lists.commentsDelete);
+
+router.route('/register')
+  .post(registrations.create)
+  .get(registrations.new);
 
 module.exports = router;

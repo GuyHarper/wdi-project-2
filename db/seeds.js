@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const List = require('../models/list');
+const User = require('../models/user');
 const { dbURI } = require('../config/environment');
 
 mongoose.connect(dbURI, { useMongoClient: true });
@@ -7,6 +8,7 @@ mongoose.connect(dbURI, { useMongoClient: true });
 mongoose.Promise = require('bluebird');
 
 List.collection.drop();
+User.collection.drop();
 
 List.create([{
   name: 'Groceries',
