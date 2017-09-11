@@ -1,14 +1,13 @@
 <section class="container content">
-  <h1>New list</h1>
   <form method="POST" action="/lists">
-    <label for="name">Name</label>
-    <input type="text" name="name" id="name">
+    <label for="name" hidden>Name</label>
+    <input type="text" name="name" id="name" class="input is-large list-name-input" placeholder="List name" autofocus autocomplete="off">
     <ul>
       <li>
-        <label for="new-entry">Entry</label>
-        <input type="text" name="text" id="new-entry">
+        <label for="new-entry" hidden>Entry</label>
+        <input type="text" name="text" id="new-entry" class="input is-medium" placeholder="List entry" autocomplete="off">
       </li>
     </ul>
-    <button>Add list</button>
+    <button class="button">Add list</button>
   </form>
 </section>

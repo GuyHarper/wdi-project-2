@@ -1,18 +1,85 @@
 <section class="container content">
 
-  <h1 class=><%= list.name %></h1>
-
+  <form method="POST" action="/lists/<%= list.id %>">
+    <input type="hidden" name="_method" value="PUT">
+    <label for="name" hidden>Name</label>
+    <input type="text" name="name" id="name" value="<%= list.name %>" class="input is-large list-name-input" autocomplete="off">
+    <button>Update name</button>
+  </form>
   <ul>
     <% list.entries.forEach(entry => { %>
-      <li><%= entry.text %> </li>
-    <% }) %>
-  </ul>
+      <div class="columns">
+      <li class="card column is-half">
+      <div class="columns is-multiline is-mobile">
+        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column">
+        <div class="columns is-mobile">
+          <input type="hidden" name="_method" value="PUT">
+          <div class="field column">
+            <div class="control">
+              <label for="<%= entry.id %>" hidden>Entry</label>
+              <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>" class="input is-medium" autocomplete="off">
+            </div>
+          </div>
+          <div class="column is-narrow">
+          <button class="button">Update</button>
+          </div>
+          </div>
+        </form>
+        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column is-narrow">
+          <input type="hidden" name="_method" value="DELETE">
+          <button class="button">Delete</button>
+        </form>
+        </div>
+        <ul>
+          <% entry.comments.forEach(comment => { %>
+            <li class="columns is-multiline is-mobile">
+              <div class="column is-narrow">
+                <%= comment.text %>
+              </div>
+              <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments/<%= comment.id %>" class="column is-narrow">
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="button">Delete</button>
+              </form>
+            </li>
+          <% }) %>
+          <li class="columns">
+            <div class="column is-three-quarters">
+              <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments" class="columns is-multiline is-mobile">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="control column">
+                  <label for="new-comment" hidden>Comment</label>
+                  <input type="text" name="text" id="new-comment" autocomplete="off" class="input comment-input is-small" placeholder="Add comment">
+                </div>
+                <div class="column is-narrow">
+                  <button class="button is-small comment-button hidden">Add Comment</button>
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
 
-  <a href="/lists/<%= list.id %>/edit" class="button">Edit</a>
+      </li>
+  </div>
+    <% }) %>
+    <div class="columns">
+    <li class="card column is-half">
+      <form method="POST" action="/lists/<%= list.id %>/entries" class="columns is-multiline is-mobile">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="control column">
+        <label for="new-entry" hidden>Entry</label>
+        <input type="text" name="text" id="new-entry" autocomplete="off" class="input is-medium">
+      </div>
+      <div class="column is-narrow">
+        <button class="button">Add entry</button>
+      </div>
+      </form>
+    </li>
+  </div>
+  </ul>
 
   <form method="POST" action="/lists/<%= list.id %>">
     <input type="hidden" name="_method" value="DELETE">
-    <button class="button">Delete</button>
+    <button class="button">Delete list</button>
   </form>
 
 </section>

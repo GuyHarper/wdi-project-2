@@ -9,11 +9,18 @@ li {
 input.input {
       border: none;
       box-shadow: none;
+      &.list-name-input {
+        font-weight: 500;
+      }
       &.comment-input {
         border: 1px solid rgba(10,10,10,.1);
       }
 }
 
 .card {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
 }
