@@ -62,7 +62,7 @@ function listsNew(req, res) {
 }
 
 function listsCreate(req, res) {
-  req.body.author.id = req.currentUser.id;
+  req.body.author = req.currentUser;
   List
     .create(req.body)
     .then(() => res.redirect('/lists'))

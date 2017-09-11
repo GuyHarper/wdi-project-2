@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const flash = require('express-flash');
 
 const { port, dbURI, secret } = require('./config/environment');
 const routes = require('./config/routes');
@@ -35,6 +36,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+app.use(flash());
 
 app.use(userAuth);
 

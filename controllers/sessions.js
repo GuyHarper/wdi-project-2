@@ -9,7 +9,8 @@ function sessionsCreate(req, res) {
     .findOne({ email: req.body.email })
     .then(user => {
       if(!user || !user.validatePassword(req.body.password)) {
-        return res.render('error', { err: 'Invalid credentials'});
+        req.flash('danger', 'Invalid credentials');
+        return res.reirect('/login');
       }
       req.session.userId = user.id;
       res.redirect('/');
