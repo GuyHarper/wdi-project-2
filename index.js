@@ -10,6 +10,7 @@ const session = require('express-session');
 
 const { port, dbURI, secret } = require('./config/environment');
 const routes = require('./config/routes');
+const userAuth = require('./lib/userAuth');
 
 
 mongoose.connect(dbURI, { useMongoClient: true });
@@ -34,18 +35,8 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
-app.use((req, res, next) => {
-  if(!req.session.userId) return next();
-  const User = require('./models/user');
-  User
-    .findById(req.session.userId)
-    .then(user => {
-      res.locals.isAuthenticated = true;
-      res.locals.currentUser = user;
-      req.currentUser = user;
-      next();
-    });
-});
+
+app.use(userAuth);
 
 app.use(routes);
 
