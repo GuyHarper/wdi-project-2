@@ -1,7 +1,6 @@
 const List = require('../models/list');
 
 function listsIndex(req, res) {
-  console.log(req.currentUser);
   List
     .find({ author: req.currentUser})
     .exec()
@@ -12,26 +11,47 @@ function listsIndex(req, res) {
 function listsShow(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
-    .then(list => res.render('lists/show', { list }))
+    .then(list => {
+      if(list.author.id === req.currentUser.id) {
+        res.render('lists/show', { list });
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
+    })
     .catch(err => res.render('error', { err }));
 }
 
 function listsEdit(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
-    .then(list => res.render('lists/edit', { list }))
+    .then(list => {
+      console.log(list.author);
+      console.log(req.currentUser);
+      if(list.author.id === req.currentUser.id) {
+        res.render('lists/edit', { list });
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
+    })
     .catch(err => res.render('error', { err }));
 }
 
 function listsUpdate(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
     .then(list => {
-      list = Object.assign( list, req.body );
-      return list.save();
+      if(list.author.id === req.currentUser.id) {
+        list = Object.assign( list, req.body );
+        return list.save();
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
     })
     .then(list => res.redirect(`/lists/${list.id}`))
     .catch(err => res.render('error', { err }));
@@ -42,7 +62,7 @@ function listsNew(req, res) {
 }
 
 function listsCreate(req, res) {
-  req.body.author = req.currentUser;
+  req.body.author.id = req.currentUser.id;
   List
     .create(req.body)
     .then(() => res.redirect('/lists'))
@@ -52,9 +72,14 @@ function listsCreate(req, res) {
 function listsDelete(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
     .then(list => {
-      return list.remove();
+      if(list.author.id === req.currentUser.id) {
+        return list.remove();
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
     })
     .then(() => res.redirect('/lists'))
     .catch(err => res.render('error', { err }));
@@ -63,10 +88,15 @@ function listsDelete(req, res) {
 function listsEntriesCreate(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
     .then(list => {
-      list.entries.push(req.body);
-      return list.save();
+      if(list.author.id === req.currentUser.id) {
+        list.entries.push(req.body);
+        return list.save();
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
     })
     .then(list => res.redirect(`/lists/${list.id}`))
     .catch(err => res.render('error', { err }));
@@ -75,11 +105,16 @@ function listsEntriesCreate(req, res) {
 function listsEntriesDelete(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
     .then(list => {
-      const entry = list.entries.id(req.params.entryId);
-      entry.remove();
-      return list.save();
+      if(list.author.id === req.currentUser.id) {
+        const entry = list.entries.id(req.params.entryId);
+        entry.remove();
+        return list.save();
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
     })
     .then(list => res.redirect(`/lists/${list.id}`))
     .catch(err => res.render('error', { err }));
@@ -88,11 +123,16 @@ function listsEntriesDelete(req, res) {
 function listsEntriesUpdate(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
     .then(list => {
-      let entry = list.entries.id(req.params.entryId);
-      entry = Object.assign( entry, req.body );
-      return list.save();
+      if(list.author.id === req.currentUser.id) {
+        let entry = list.entries.id(req.params.entryId);
+        entry = Object.assign( entry, req.body );
+        return list.save();
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
     })
     .then(list => res.redirect(`/lists/${list.id}`))
     .catch(err => res.render('error', { err }));
@@ -101,11 +141,16 @@ function listsEntriesUpdate(req, res) {
 function entriesCommentsCreate(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
     .then(list => {
-      const entry = list.entries.id(req.params.entryId);
-      entry.comments.push(req.body);
-      return list.save();
+      if(list.author.id === req.currentUser.id) {
+        const entry = list.entries.id(req.params.entryId);
+        entry.comments.push(req.body);
+        return list.save();
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
     })
     .then(list => res.redirect(`/lists/${list.id}`))
     .catch(err => res.render('error', { err }));
@@ -114,12 +159,17 @@ function entriesCommentsCreate(req, res) {
 function entriesCommentsDelete(req, res) {
   List
     .findById(req.params.id)
+    .populate('author')
     .exec()
     .then(list => {
-      const entry = list.entries.id(req.params.entryId);
-      const comment = entry.comments.id(req.params.commentId);
-      comment.remove();
-      return list.save();
+      if(list.author.id === req.currentUser.id) {
+        const entry = list.entries.id(req.params.entryId);
+        const comment = entry.comments.id(req.params.commentId);
+        comment.remove();
+        return list.save();
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
     })
     .then(list => res.redirect(`/lists/${list.id}`))
     .catch(err => res.render('error', { err }));
