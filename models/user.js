@@ -8,6 +8,19 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true }
 });
 
+userSchema
+  .virtual('passwordConfirmation')
+  .set(function setPasswordConfirmation(passwordConfirmation) {
+    this._passwordConfirmation = passwordConfirmation;
+  });
+
+// pre validate
+userSchema.pre('validate', function checkPasswordConfirmation(next) {
+  if(this.isModified('password') && this._passwordConfirmation !== this.password) this.invalidate('passwordConfirmation', 'does not match');
+  next();
+});
+
+// pre save
 userSchema.pre('save', function hashPassword(next) {
   if(this.isModified('password')) {
     this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
