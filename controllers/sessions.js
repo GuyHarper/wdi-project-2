@@ -11,6 +11,7 @@ function sessionsCreate(req, res) {
       if(!user || !user.validatePassword(req.body.password)) {
         return res.render('error', { err: 'Invalid credentials'});
       }
+      req.session.userId = user.id;
       res.redirect('/');
     });
 }

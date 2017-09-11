@@ -6,8 +6,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
-const { port, dbURI } = require('./config/environment');
+const { port, dbURI, secret } = require('./config/environment');
 const routes = require('./config/routes');
 
 
@@ -27,7 +28,26 @@ app.use(methodOverride((req => {
     return method;
   }
 })));
+app.use(session({
+  secret: secret,
+  maxAge: 1572480000000, // 50 years!
+  resave: false,
+  saveUninitialized: false
+}));
+app.use((req, res, next) => {
+  if(!req.session.userId) return next();
+  const User = require('./models/user');
+  User
+    .findById(req.session.userId)
+    .then(user => {
+      res.locals.isAuthenticated = true;
+      res.locals.currentUser = user;
+      next();
+    });
+});
 
 app.use(routes);
+
+
 
 app.listen(port, () => console.log(`Express is listening on port ${port}`));
