@@ -42,6 +42,7 @@ app.use((req, res, next) => {
     .then(user => {
       res.locals.isAuthenticated = true;
       res.locals.currentUser = user;
+      req.currentUser = user;
       next();
     });
 });

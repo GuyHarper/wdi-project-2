@@ -19,6 +19,7 @@ const entrySchema = new mongoose.Schema({
 const listSchema = new mongoose.Schema({
   name: String,
   entries: [ entrySchema ],
+  author: { type: mongoose.Schema.ObjectId, ref: 'User' },
   contributors: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
 }, {
   timestamps: true

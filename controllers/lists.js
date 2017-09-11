@@ -1,8 +1,9 @@
 const List = require('../models/list');
 
 function listsIndex(req, res) {
+  console.log(req.currentUser);
   List
-    .find()
+    .find({ author: req.currentUser})
     .exec()
     .then(lists => res.render('lists/index', { lists }))
     .catch(err => res.render('error', { err }));
@@ -41,6 +42,7 @@ function listsNew(req, res) {
 }
 
 function listsCreate(req, res) {
+  req.body.author = req.currentUser;
   List
     .create(req.body)
     .then(() => res.redirect('/lists'))
