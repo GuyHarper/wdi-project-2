@@ -16,18 +16,17 @@
     <% list.entries.filter(entry => { %>
       <% return entry.active; %>
     <% }).forEach(entry => { %>
-      <div class="columns">
-      <li class="card column is-half">
+      <li class="columns">
+      <div class="card column is-half">
       <div class="columns is-gapless is-multiline is-mobile">
+      <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column justify-content-center is-narrow entry-active-update-form entry-id-<%= entry.id %>">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="active" value="false">
+        <div class="checkbox-div entry-id-<%= entry.id %>"><i class="fa fa-square-o entry-id-<%= entry.id %>" aria-hidden="true"></i></div>
+      </form>
         <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column entry-update-form entry-id-<%= entry.id %>">
         <div class="columns is-mobile">
         <input type="hidden" name="_method" value="PUT">
-          <div class="field column is-narrow justify-content-center">
-          <div class="control">
-            <label for="active-status-<%= entry.id %>" hidden>Active</label>
-            <input type="checkbox" name="active" id="active-status-<%= entry.id %>" class="checkbox entry-id-<%= entry.id %>" value="<%= entry.active %>" checked>
-          </div>
-          </div>
           <div class="field column">
             <div class="control">
               <label for="entry-input-<%= entry.id %>" hidden>Entry</label>
@@ -70,13 +69,15 @@
                 </div>
               </form>
             </div>
+            </div>
+
           </li>
-        </ul>
-      </li>
-  </div>
+
+      </div>
+  </li>
     <% }) %>
-    <div class="columns">
-    <li class="card column is-half">
+    <li class="columns">
+    <div class="card column is-half">
       <form method="POST" action="/lists/<%= list.id %>/entries" class="columns is-multiline is-mobile">
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="active" value="true">
@@ -88,8 +89,8 @@
         <button class="button is-small add-entry-button hidden"><i class="fa fa-plus" aria-hidden="true"></i></button>
       </div>
       </form>
-    </li>
-  </div>
+    </div>
+  </li>
   </ul>
-
+</ul>
 </section>

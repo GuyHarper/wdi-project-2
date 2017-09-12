@@ -2,6 +2,22 @@
   <form method="POST" action="/lists" class="list-name-form">
     <label for="name" hidden>Name</label>
     <input type="text" name="name" id="name" class="input is-large list-name-input" placeholder="List name" autofocus autocomplete="off">
-    <button class="button">Add list</button>
+    <button class="button hidden">Add list</button>
   </form>
+  <ul>
+    <div class="columns">
+
+  <li class="card column is-half">
+    <form method="POST" class="columns is-multiline is-mobile">
+      <input type="hidden" name="_method" value="PUT">
+      <input type="hidden" name="active" value="true">
+      <div class="control column">
+      <label for="new-entry" hidden>Entry</label>
+      <input type="text" name="text" id="new-entry" autocomplete="off" class="input is-medium" placeholder="Add entry">
+    </div>
+    </form>
+  </li>
+</div>
+  
+</ul>
 </section>
