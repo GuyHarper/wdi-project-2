@@ -1,6 +1,15 @@
-body {
-  font-family: 'Oxygen', sans-serif;
-}
+@import "bulma/sass/utilities/initial-variables";
+
+$primary: #6ab5ff;
+$family-sans-serif: 'Oxygen', sans-serif;
+$family-primary: $family-sans-serif;
+$size-large: $size-3;
+$border: $grey-lighter;
+$border-hover: $border;
+$card-shadow: 0 0 0 1px rgba($black, 0.1);
+
+@import "bulma/bulma";
+
 
 li {
   list-style-type: none;
@@ -10,25 +19,47 @@ input.input {
       border: none;
       box-shadow: none;
       &.list-name-input {
-        font-weight: 500;
+        font-weight: $weight-semibold;
       }
       &.comment-input {
-        border: 1px solid rgba(10,10,10,.1);
+        margin-bottom: 1rem;
+        padding-bottom: 0;
+        border-bottom: 1px solid $border;
+        border-radius: 0;
+      }
+      &::placeholder {
+        color: $grey-lighter;
       }
 }
 
-.add-comment-button {
+button.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: .5rem;
   border: none;
-  color: #7a7a7a;
-  padding-left: .625em;
+  color: $grey-light;
+  padding: .625em;
+  &.add-entry-button {
+    padding: 1.5em 1em;
+  }
+  &.hidden {
+    display: none;
+  }
   &:hover {
-    color: #7a7a7a;
+    color: $grey;
+  }
+  &:active {
+    border: none;
+    &.add-comment-button {
+      border: none;
+    }
   }
 }
 
 
 .card {
-  margin-bottom: 20px;
+  margin-bottom: 0.25rem;
 }
 
 .hidden {
@@ -36,4 +67,22 @@ input.input {
   &.comment-form {
     display: none;
   }
+}
+
+.column {
+  padding: .5rem;
+}
+
+.column.justify-content-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.field:not(:last-child) {
+  margin: 0;
+}
+
+.columns.is-gapless:not(:last-child) {
+  margin-bottom: 0;
 }

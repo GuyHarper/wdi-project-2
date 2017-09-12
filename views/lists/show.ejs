@@ -6,28 +6,34 @@
     <input type="text" name="name" id="name" value="<%= list.name %>" class="input is-large list-name-input" autocomplete="off">
     <button>Update name</button>
   </form>
+
+    <form method="POST" action="/lists/<%= list.id %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <button class="button">Delete list</button>
+    </form>
+
   <ul>
     <% list.entries.forEach(entry => { %>
       <div class="columns">
       <li class="card column is-half">
-      <div class="columns is-multiline is-mobile">
-        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column">
+      <div class="columns is-gapless is-multiline is-mobile">
+        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column entry-update-form entry-id-<%= entry.id %>">
         <div class="columns is-mobile">
           <input type="hidden" name="_method" value="PUT">
           <div class="field column">
             <div class="control">
               <label for="<%= entry.id %>" hidden>Entry</label>
-              <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>" class="input is-medium" autocomplete="off">
+              <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>" class="input entry-input entry-id-<%= entry.id %> is-medium" autocomplete="off">
             </div>
           </div>
-          <div class="column is-narrow">
-          <button class="button">Update</button>
+          <div class="column is-narrow justify-content-center">
+          <button class="button is-small hidden">Update</button>
           </div>
           </div>
         </form>
-        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column is-narrow">
+        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column is-narrow justify-content-center">
           <input type="hidden" name="_method" value="DELETE">
-          <button class="button">Delete</button>
+          <button class="button is-small">Delete</button>
         </form>
         </div>
         <ul>
@@ -70,17 +76,12 @@
         <label for="new-entry" hidden>Entry</label>
         <input type="text" name="text" id="new-entry" autocomplete="off" class="input is-medium" placeholder="Add entry">
       </div>
-      <div class="column is-narrow">
-        <button class="button">Add</button>
+      <div class="column is-narrow justify-content-center">
+        <button class="button is-small add-entry-button hidden"><i class="fa fa-plus" aria-hidden="true"></i></button>
       </div>
       </form>
     </li>
   </div>
   </ul>
-
-  <form method="POST" action="/lists/<%= list.id %>">
-    <input type="hidden" name="_method" value="DELETE">
-    <button class="button">Delete list</button>
-  </form>
 
 </section>
