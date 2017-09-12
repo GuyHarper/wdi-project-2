@@ -3,8 +3,39 @@ const $commentInput = $('.comment-input');
 const $input = $('.input');
 const $addEntryButton = $('.add-entry-button');
 const $newEntryInput = $('#new-entry');
+const $entryCheckbox = $(':checkbox');
+// const $listNameInput = $('.list-name-input');
+// const $listNameButton = $('.')
 let entryId = null;
 let inputContents = null;
+
+// $listNameInput.on('focus',(e) => {
+//   inputContents = $(e.target).val();
+// });
+//
+// $listNameInput.on('blur',(e) => {
+//   if($(e.target).val() !== '' && inputContents !== $(e.target).val()) {
+//     const arrayOfClasses = $(e.target).attr('class').split(' ');
+//     arrayOfClasses.forEach(function($class) {
+//       if($class.match(/entry-id-*/)) {
+//         entryId = $class;
+//       }
+//       const $entryForm = $(`.entry-update-form.${entryId}`);
+//       $entryForm.submit();
+//     });
+//   }
+// });
+
+$entryCheckbox.change((e) => {
+  const arrayOfClasses = $(e.target).attr('class').split(' ');
+  arrayOfClasses.forEach(function($class) {
+    if($class.match(/entry-id-*/)) {
+      entryId = $class;
+    }
+    const $entryForm = $(`.entry-update-form.${entryId}`);
+    $entryForm.submit();
+  });
+});
 
 $newEntryInput.on('focus',() => {
   $addEntryButton.removeClass('hidden');
@@ -22,11 +53,10 @@ $input.on('focus',(e) => {
 
 $input.on('blur',(e) => {
   if($(e.target).val() !== '' && inputContents !== $(e.target).val()) {
-    console.log('got here');
-    const arrayOfClasses = $(e.target).attr('class').split(' '); console.log($(e.target).attr('class').split(' '));
+    const arrayOfClasses = $(e.target).attr('class').split(' ');
     arrayOfClasses.forEach(function($class) {
       if($class.match(/entry-id-*/)) {
-        entryId = $class; console.log(entryId);
+        entryId = $class;
       }
       const $entryForm = $(`.entry-update-form.${entryId}`);
       $entryForm.submit();

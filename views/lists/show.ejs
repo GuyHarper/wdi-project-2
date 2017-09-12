@@ -4,7 +4,7 @@
     <input type="hidden" name="_method" value="PUT">
     <label for="name" hidden>Name</label>
     <input type="text" name="name" id="name" value="<%= list.name %>" class="input is-large list-name-input" autocomplete="off">
-    <button>Update name</button>
+    <button class="list-name-button hidden">Update name</button>
   </form>
 
     <form method="POST" action="/lists/<%= list.id %>">
@@ -13,17 +13,25 @@
     </form>
 
   <ul>
-    <% list.entries.forEach(entry => { %>
+    <% list.entries.filter(entry => { %>
+      <% return entry.active; %>
+    <% }).forEach(entry => { %>
       <div class="columns">
       <li class="card column is-half">
       <div class="columns is-gapless is-multiline is-mobile">
         <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column entry-update-form entry-id-<%= entry.id %>">
         <div class="columns is-mobile">
-          <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="_method" value="PUT">
+          <div class="field column is-narrow justify-content-center">
+          <div class="control">
+            <label for="active-status-<%= entry.id %>" hidden>Active</label>
+            <input type="checkbox" name="active" id="active-status-<%= entry.id %>" class="checkbox entry-id-<%= entry.id %>" value="<%= entry.active %>" checked>
+          </div>
+          </div>
           <div class="field column">
             <div class="control">
-              <label for="<%= entry.id %>" hidden>Entry</label>
-              <input type="text" name="text" id="<%= entry.id %>" value="<%= entry.text %>" class="input entry-input entry-id-<%= entry.id %> is-medium" autocomplete="off">
+              <label for="entry-input-<%= entry.id %>" hidden>Entry</label>
+              <input type="text" name="text" id="entry-input-<%= entry.id %>" value="<%= entry.text %>" class="input entry-input entry-id-<%= entry.id %> is-medium" autocomplete="off">
             </div>
           </div>
           <div class="column is-narrow justify-content-center">
@@ -54,8 +62,8 @@
               <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>/comments" class="columns is-multiline is-mobile entry-id-<%= entry.id %> hidden comment-form">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="control column">
-                  <label for="new-comment" hidden>Comment</label>
-                  <input type="text" name="text" id="new-comment" autocomplete="off" class="input entry-id-<%= entry.id %> comment-input is-small" placeholder="Add comment">
+                  <label for="new-comment-<%= entry.id %>" hidden>Comment</label>
+                  <input type="text" name="text" id="new-comment-<%= entry.id %> " autocomplete="off" class="input entry-id-<%= entry.id %> comment-input is-small" placeholder="Add comment">
                 </div>
                 <div class="column is-narrow">
                   <button class="button is-small entry-id-<%= entry.id %> comment-button">Add</button>
@@ -64,7 +72,6 @@
             </div>
           </li>
         </ul>
-
       </li>
   </div>
     <% }) %>
@@ -72,6 +79,7 @@
     <li class="card column is-half">
       <form method="POST" action="/lists/<%= list.id %>/entries" class="columns is-multiline is-mobile">
         <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="active" value="true">
         <div class="control column">
         <label for="new-entry" hidden>Entry</label>
         <input type="text" name="text" id="new-entry" autocomplete="off" class="input is-medium" placeholder="Add entry">

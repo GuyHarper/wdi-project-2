@@ -121,6 +121,7 @@ function listsEntriesDelete(req, res) {
 }
 
 function listsEntriesUpdate(req, res) {
+  console.log(req.body);
   List
     .findById(req.params.id)
     .populate('author')
@@ -129,6 +130,9 @@ function listsEntriesUpdate(req, res) {
       if(list.author.id === req.currentUser.id) {
         let entry = list.entries.id(req.params.entryId);
         entry = Object.assign( entry, req.body );
+        if(!req.body.active) {
+          entry.active = false;
+        }
         return list.save();
       } else {
         res.render('error', { err: 'This is not your list'});
