@@ -7,10 +7,12 @@
     <button class="hidden">Update name</button>
   </form>
 
+  <% if(locals.isAuthenticated) { %>
     <form method="POST" action="/lists/<%= list.id %>">
       <input type="hidden" name="_method" value="DELETE">
       <button class="button list-delete-button">Delete list</button>
     </form>
+  <% } %>
 
   <ul>
     <% list.entries.filter(entry => { %>

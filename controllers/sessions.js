@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const List = require('../models/list');
 
 function sessionsNew(req, res) {
   res.render('sessions/new');
@@ -17,6 +18,21 @@ function sessionsCreate(req, res) {
     });
 }
 
+function sessionsStart(req, res) {
+  if(!req.session.listId) {
+    List
+      .create({
+        name: 'My first list',
+        entries: []
+      })
+      .then(list => {
+        req.session.listId = list.id;
+        res.redirect(`/lists/${list.id}`);
+      })
+      .catch(err => res.render('error', { err }));
+  }
+}
+
 function sessionsDelete(req, res) {
   req.session.regenerate(() => res.redirect('/'));
 }
@@ -24,5 +40,6 @@ function sessionsDelete(req, res) {
 module.exports = {
   new: sessionsNew,
   create: sessionsCreate,
-  delete: sessionsDelete
+  delete: sessionsDelete,
+  start: sessionsStart
 };

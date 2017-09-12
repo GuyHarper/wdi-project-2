@@ -1,11 +1,13 @@
 <nav class="navbar">
   <div class="navbar-menu is-active">
     <div class="navbar-start">
-      <a class="navbar-item" href="/lists">lists</a>
       <% if(!locals.isAuthenticated) { %>
+        <% console.log(locals.listId) %>
+        <a class="navbar-item" href="/lists/<%= locals.listId %>">my first list</a>
         <a class="navbar-item" href="/login">login</a>
         <a class="navbar-item" href="/register">register</a>
       <% } else { %>
+        <a class="navbar-item" href="/lists">lists</a>
         <a class="navbar-item" href="/lists/new">new list</a>
         <a class="navbar-item" href="/logout">logout</a>
       <% } %>

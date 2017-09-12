@@ -12,6 +12,7 @@ const flash = require('express-flash');
 const { port, dbURI, secret } = require('./config/environment');
 const routes = require('./config/routes');
 const userAuth = require('./lib/userAuth');
+const userGuestAccess = require('./lib/userGuestAccess');
 
 
 mongoose.connect(dbURI, { useMongoClient: true });
@@ -39,6 +40,8 @@ app.use(session({
 app.use(flash());
 
 app.use(userAuth);
+
+app.use(userGuestAccess);
 
 app.use(routes);
 

@@ -6,6 +6,8 @@ const secureRoute = require('../lib/secureRoute');
 
 router.get('/', (req, res) => res.render('home'));
 
+router.get('/s', sessions.start);
+
 router.route('/lists')
   .get(lists.index)
   .post( secureRoute, lists.create );
