@@ -13,7 +13,7 @@ function sessionsCreate(req, res) {
         return res.redirect('/login');
       }
       req.session.userId = user.id;
-      res.redirect('/');
+      res.redirect('/lists');
     });
 }
 
