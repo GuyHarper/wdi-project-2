@@ -4,27 +4,20 @@ const $input = $('.input');
 const $addEntryButton = $('.add-entry-button');
 const $newEntryInput = $('#new-entry');
 const $entryCheckbox = $(':checkbox');
-// const $listNameInput = $('.list-name-input');
-// const $listNameButton = $('.')
+const $listNameInput = $('.list-name-input');
+const $listNameForm = $('.list-name-form');
 let entryId = null;
 let inputContents = null;
 
-// $listNameInput.on('focus',(e) => {
-//   inputContents = $(e.target).val();
-// });
-//
-// $listNameInput.on('blur',(e) => {
-//   if($(e.target).val() !== '' && inputContents !== $(e.target).val()) {
-//     const arrayOfClasses = $(e.target).attr('class').split(' ');
-//     arrayOfClasses.forEach(function($class) {
-//       if($class.match(/entry-id-*/)) {
-//         entryId = $class;
-//       }
-//       const $entryForm = $(`.entry-update-form.${entryId}`);
-//       $entryForm.submit();
-//     });
-//   }
-// });
+$listNameInput.on('focus',(e) => {
+  inputContents = $(e.target).val();
+});
+
+$listNameInput.on('blur',(e) => {
+  if(inputContents !== $(e.target).val()) {
+    $listNameForm.submit();
+  }
+});
 
 $entryCheckbox.change((e) => {
   const arrayOfClasses = $(e.target).attr('class').split(' ');
