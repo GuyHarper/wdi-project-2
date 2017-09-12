@@ -2,7 +2,7 @@ const List = require('../models/list');
 
 function listsIndex(req, res) {
   List
-    .find({ author: req.currentUser})
+    .find({ author: req.currentUser })
     .exec()
     .then(lists => res.render('lists/index', { lists }))
     .catch(err => res.render('error', { err }));
@@ -63,9 +63,30 @@ function listsNew(req, res) {
 
 function listsCreate(req, res) {
   req.body.author = req.currentUser;
+  let latestCreated = null;
   List
     .create(req.body)
-    .then(() => res.redirect('/lists'))
+    .then(() => {
+      List
+        .find({ author: req.currentUser })
+        .exec()
+        .then(lists => {
+          lists.reduce(function(a, b) {
+            if(!a) {
+              a = b;
+            }
+            if(b.createdAt > a.createdAt) {
+              a = b;
+            }
+            latestCreated = a;
+            console.log(latestCreated);
+          });
+        })
+        .then(() => {
+          res.redirect(`/lists/${latestCreated.id}`);
+        })
+        .catch(err => res.render('error', { err }));
+    })
     .catch(err => res.render('error', { err }));
 }
 

@@ -1,13 +1,7 @@
 <section class="container content">
-  <form method="POST" action="/lists">
+  <form method="POST" action="/lists" class="list-name-form">
     <label for="name" hidden>Name</label>
     <input type="text" name="name" id="name" class="input is-large list-name-input" placeholder="List name" autofocus autocomplete="off">
-    <ul>
-      <li>
-        <label for="new-entry" hidden>Entry</label>
-        <input type="text" name="text" id="new-entry" class="input is-medium" placeholder="List entry" autocomplete="off">
-      </li>
-    </ul>
     <button class="button">Add list</button>
   </form>
 </section>
