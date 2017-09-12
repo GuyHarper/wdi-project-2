@@ -1,13 +1,13 @@
 <nav class="navbar">
   <div class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="/lists">Lists</a>
+      <a class="navbar-item" href="/lists">lists</a>
       <% if(!locals.isAuthenticated) { %>
-        <a class="navbar-item" href="/login">Login</a>
-        <a class="navbar-item" href="/register">Register</a>
+        <a class="navbar-item" href="/login">login</a>
+        <a class="navbar-item" href="/register">register</a>
       <% } else { %>
-        <a class="navbar-item" href="/lists/new">New list</a>
-        <a class="navbar-item" href="/logout">Logout</a>
+        <a class="navbar-item" href="/lists/new">new list</a>
+        <a class="navbar-item" href="/logout">logout</a>
       <% } %>
     </div>
   </div>

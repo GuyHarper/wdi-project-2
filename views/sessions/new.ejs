@@ -1,10 +1,15 @@
 <section class="container content">
-  <h1>Login</h1>
   <form method="POST" action="/login">
-    <label for="email">Email address</label>
-    <input type="email" name="email" id="email">
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password">
-    <button>Login</button>
+    <div class="control login">
+      <label for="email">Email address</label>
+      <input type="email" name="email" id="email" class="input login">
+    </div>
+    <div class="control login">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" class="input login">
+    </div>
+      <div class="control login columns">
+        <button class="button login column is-narrow">Login</button>
+      </div>
   </form>
 </section>
