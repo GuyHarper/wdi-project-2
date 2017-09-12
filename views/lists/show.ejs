@@ -99,4 +99,44 @@
       </div>
     </li>
   </ul>
+  <ul class="inactive">
+    <% list.entries.filter(entry => { %>
+      <% return !entry.active; %>
+    <% }).forEach(entry => { %>
+      <li class="columns card-container">
+        <div class="card column is-half inactive">
+          <div class="columns is-gapless is-multiline is-mobile">
+
+            <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column justify-content-center is-narrow entry-active-update-form">
+              <input type="hidden" name="_method" value="PUT">
+              <input type="hidden" name="active" value="true">
+              <div class="checkbox-div"><i class="fa fa-check-square-o inactive" aria-hidden="true"></i></div>
+            </form>
+
+            <form class="column entry-update-form">
+              <div class="columns is-mobile">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="active" value="true">
+                <div class="field column">
+                  <div class="control">
+                    <label for="entry-input-<%= entry.id %>" hidden>Entry</label>
+                    <input type="text" name="text" id="entry-input-<%= entry.id %>" value="<%= entry.text %>" class="input entry-input is-medium inactive" readonly>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+
+            <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column is-narrow justify-content-center">
+              <input type="hidden" name="_method" value="DELETE">
+              <button class="button is-small">Delete</button>
+            </form>
+
+          </div>
+
+
+        </div>
+      </li>
+    <% }) %>
+  </ul>
 </section>

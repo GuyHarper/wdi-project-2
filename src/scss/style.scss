@@ -10,6 +10,10 @@ $card-shadow: 0 0 0 1px rgba($black, 0.1);
 
 @import "bulma/bulma";
 
+h1 {
+  margin-top: 50px;
+}
+
 h1.homepage {
   font-size: 5rem;
   text-align: center;
@@ -21,6 +25,10 @@ h1.homepage {
   color: $light;
 }
 
+ul.inactive {
+  margin-top: 50px;
+}
+
 li {
   list-style-type: none;
 }
@@ -29,8 +37,9 @@ input.input {
       border: none;
       box-shadow: none;
       padding-bottom: 5px;
-      &.list-name-input {
-        font-weight: $weight-semibold;
+      &.inactive {
+        color: $grey-lighter;
+        text-decoration: line-through;
       }
       &.comment-input {
         margin-top: 5px;
@@ -96,6 +105,11 @@ button.button {
 
 .card {
   margin-bottom: 0.25rem;
+  &.inactive {
+    height: 30px;
+    color: $grey-lighter;
+    box-shadow: none;
+  }
   .column {
     padding-bottom: 0.75rem;
   }
@@ -160,6 +174,10 @@ button.button {
   margin-top: 2.1rem;
   margin-left: 0.2rem;
   font-size: 1rem;
+}
+
+.fa-check-square-o.inactive:hover {
+  color: $grey-light;
 }
 
 .is-small {
