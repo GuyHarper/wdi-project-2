@@ -49,21 +49,24 @@ $entryInput.on('focus',(e) => {
 });
 
 $entryInput.on('blur',(e) => {
-  console.log('blurring');
   if($(e.target).val() !== '' && inputContents !== $(e.target).val()) {
     $(e.target).parents('form').submit();
   }
 });
 
 $addCommentButton.on('click',(e) => {
-  $(e.target).addClass('hidden');
-  $('.comment-form').removeClass('hidden');
+  const $card = $(e.target).parents('.card');
+  const $commentForm = $card.eq(0).find('.comment-form');
+  $commentForm.removeClass('hidden');
   $commentInput.focus();
+  $(e.target).addClass('hidden');
 });
 
-$commentInput.on('blur',() => {
-  if($commentInput.val() === '') {
-    $('.comment-form').addClass('hidden');
+$commentInput.on('blur',(e) => {
+  if(!$(e.target).val()) {
+    const $card = $(e.target).parents('.card');
+    const $commentForm = $card.eq(0).find('.comment-form');
+    $commentForm.addClass('hidden');
     $addCommentButton.removeClass('hidden');
   }
 });

@@ -49,6 +49,13 @@ button.button {
   &.add-entry-button {
     padding: 1.5em 1em;
   }
+  &.comment-button {
+    padding: 2px;
+    margin-left: 3px;
+  }
+  &.comment-delete-button {
+    padding: 3px;
+  }
   &.hidden {
     display: none;
   }
@@ -106,4 +113,34 @@ button.button {
 
 .comment-container {
   padding-top: 0;
+}
+
+.column.comment-delete-container {
+  padding: 0;
+}
+
+.comment-input {
+  padding-bottom: 0;
+}
+
+.fa-plus-square {
+  font-size: 1rem;
+}
+
+.fa-times {
+  font-size: 0.9rem;
+}
+
+.is-small {
+  font-size: $size-7;
+}
+
+.column.comment-area {
+  max-width: 70%;
+  padding: 5px;
+}
+
+.columns.comment-area-container {
+  margin-bottom: 0;
+  margin-left: 8px;
 }
