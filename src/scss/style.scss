@@ -18,9 +18,14 @@ li {
 input.input {
       border: none;
       box-shadow: none;
-      padding-bottom: 10px;
+      padding-bottom: 5px;
       &.list-name-input {
         font-weight: $weight-semibold;
+      }
+      &.comment-input {
+        margin-top: 5px;
+        margin-left: 15px;
+        font-size: $size-small;
       }
       &.comment-input {
         margin-bottom: 1rem;
@@ -59,6 +64,9 @@ button.button {
 
 .card {
   margin-bottom: 0.25rem;
+  .column {
+    padding-bottom: 0.75rem;
+  }
 }
 
 .hidden {
@@ -91,4 +99,11 @@ button.button {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.comment-container {
+  padding-top: 0;
 }
