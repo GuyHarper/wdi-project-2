@@ -56,6 +56,7 @@ input.input {
 .control{
   &.login {
     margin-top: 50px;
+    margin-left: 20px;
   }
 }
 
@@ -67,6 +68,9 @@ button.button {
   border: none;
   color: $grey-light;
   padding: .625em;
+  &.login {
+    margin-left: 0;
+  }
   &.add-entry-button {
     padding: 1.5em 1em;
   }
