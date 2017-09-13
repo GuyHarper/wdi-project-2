@@ -215,8 +215,13 @@ button.button {
 }
 
 .button.modal-close-button {
-  margin-left: 93%;
   padding: 5px;
+}
+
+.column.modal-close-button-container {
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .columns.share-cancel-container {
@@ -225,4 +230,9 @@ button.button {
 
 .button.cancel-button {
   color: $grey-lighter;
+}
+
+#share-list-form {
+  margin-left: 15px;
+  margin-right: 20px;
 }

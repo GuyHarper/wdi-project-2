@@ -28,13 +28,13 @@
       <div class="modal-card">
         <section class="modal-card-body">
           <div class="columns">
-            <div class="column">
+            <div class="column modal-close-button-container">
               <button class="button modal-button modal-close-button" aria-label="close"><i class="fa fa-window-close" aria-hidden="true"></i></button>
             </div>
           </div>
           <form method="POST" action="/lists/<%= list.id %>/share" class="list-name-form" id="share-list-form">
             <input type="hidden" name="_method" value="PUT">
-            <label for="share">Share this list with</label>
+            <label for="share">Share this list with someone</label>
             <input type="text" name="email" id="share" class="input modal-input" placeholder="Email address" autocomplete="off">
           </form>
           <div class="columns share-cancel-container">
