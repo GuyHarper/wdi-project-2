@@ -7,8 +7,14 @@ const $entryCheckbox = $(':checkbox');
 const $listNameInput = $('.list-name-input');
 const $listNameForm = $('.list-name-form');
 const $checkboxDiv = $('.checkbox-div');
+const $modalButton = $('.modal-button');
+const $modal = $('.modal');
 
 let inputContents = null;
+
+$modalButton.on('click',() => {
+  $modal.toggleClass('is-active');
+});
 
 $checkboxDiv.on('click',(e) => {
   const $parentDiv = $(e.target).parent();

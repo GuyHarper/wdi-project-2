@@ -20,6 +20,9 @@ router.route('/lists/:id')
   .put(lists.update)
   .delete( secureRoute, lists.delete );
 
+router.route('/lists/:id/share')
+  .put(lists.share);
+
 router.route('/lists/:id/edit')
   .get(lists.edit);
 

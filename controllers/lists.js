@@ -1,4 +1,5 @@
 const List = require('../models/list');
+const User = require('../models/user');
 
 function listsIndex(req, res) {
   if(!req.currentUser) {
@@ -11,9 +12,11 @@ function listsIndex(req, res) {
       .catch(err => res.render('error', { err }));
   } else {
     List
-      .find({ author: req.currentUser })
+      .find({ contributors: req.currentUser })
       .exec()
-      .then(lists => res.render('lists/index', { lists }))
+      .then(lists => {
+        res.render('lists/index', { lists });
+      })
       .catch(err => res.render('error', { err }));
   }
 }
@@ -22,13 +25,13 @@ function listsIndex(req, res) {
 function listsShow(req, res) {
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
       if(!list.author && req.session.listId === list.id) {
         res.render('lists/show', { list });
       }
-      if(list.author.id === req.currentUser.id) {
+      if(list.contributors.indexOf(req.currentUser.id) > -1) {
         res.render('lists/show', { list });
       } else {
         res.render('error', { err: 'This is not your list'});
@@ -40,12 +43,12 @@ function listsShow(req, res) {
 function listsEdit(req, res) {
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
       if(!list.author && req.session.listId === list.id) {
         res.render('lists/edit', { list });
-      } else if(list.author.id === req.currentUser.id) {
+      } else if(list.contributors.indexOf(req.currentUser.id) > -1) {
         res.render('lists/edit', { list });
       } else {
         res.render('error', { err: 'This is not your list'});
@@ -57,13 +60,13 @@ function listsEdit(req, res) {
 function listsUpdate(req, res) {
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
       if(!list.author && req.session.listId === list.id) {
         list = Object.assign( list, req.body );
         return list.save();
-      } else if(list.author.id === req.currentUser.id) {
+      } else if(list.contributors.indexOf(req.currentUser.id) > -1) {
         list = Object.assign( list, req.body );
         return list.save();
       } else {
@@ -80,6 +83,7 @@ function listsNew(req, res) {
 
 function listsCreate(req, res) {
   req.body.author = req.currentUser;
+  req.body.contributors = [req.currentUser];
   let latestCreated = null;
   List
     .create(req.body)
@@ -96,7 +100,6 @@ function listsCreate(req, res) {
               a = b;
             }
             latestCreated = a;
-            console.log(latestCreated);
           });
         })
         .then(() => {
@@ -110,10 +113,10 @@ function listsCreate(req, res) {
 function listsDelete(req, res) {
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
-      if(list.author.id === req.currentUser.id) {
+      if(list.contributors.indexOf(req.currentUser.id) > -1) {
         return list.remove();
       } else {
         res.render('error', { err: 'This is not your list'});
@@ -126,13 +129,13 @@ function listsDelete(req, res) {
 function listsEntriesCreate(req, res) {
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
       if(!list.author && req.session.listId === list.id) {
         list.entries.push(req.body);
         return list.save();
-      } else if(list.author.id === req.currentUser.id) {
+      } else if(list.contributors.indexOf(req.currentUser.id) > -1) {
         list.entries.push(req.body);
         return list.save();
       } else {
@@ -146,14 +149,14 @@ function listsEntriesCreate(req, res) {
 function listsEntriesDelete(req, res) {
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
       if(!list.author && req.session.listId === list.id) {
         const entry = list.entries.id(req.params.entryId);
         entry.remove();
         return list.save();
-      } else if(list.author.id === req.currentUser.id) {
+      } else if(list.contributors.indexOf(req.currentUser.id) > -1) {
         const entry = list.entries.id(req.params.entryId);
         entry.remove();
         return list.save();
@@ -169,7 +172,7 @@ function listsEntriesUpdate(req, res) {
   console.log(req.body);
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
       if(!list.author && req.session.listId === list.id) {
@@ -179,7 +182,7 @@ function listsEntriesUpdate(req, res) {
           entry.active = false;
         }
         return list.save();
-      } else if(list.author.id === req.currentUser.id) {
+      } else if(list.contributors.indexOf(req.currentUser.id) > -1) {
         let entry = list.entries.id(req.params.entryId);
         entry = Object.assign( entry, req.body );
         if(!req.body.active) {
@@ -197,14 +200,14 @@ function listsEntriesUpdate(req, res) {
 function entriesCommentsCreate(req, res) {
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
       if(!list.author && req.session.listId === list.id) {
         const entry = list.entries.id(req.params.entryId);
         entry.comments.push(req.body);
         return list.save();
-      } else if(list.author.id === req.currentUser.id) {
+      } else if(list.contributors.indexOf(req.currentUser.id) > -1) {
         const entry = list.entries.id(req.params.entryId);
         entry.comments.push(req.body);
         return list.save();
@@ -219,7 +222,7 @@ function entriesCommentsCreate(req, res) {
 function entriesCommentsDelete(req, res) {
   List
     .findById(req.params.id)
-    .populate('author')
+    .populate('author', 'contributors')
     .exec()
     .then(list => {
       if(!list.author && req.session.listId === list.id) {
@@ -227,7 +230,7 @@ function entriesCommentsDelete(req, res) {
         const comment = entry.comments.id(req.params.commentId);
         comment.remove();
         return list.save();
-      } else if(list.author.id === req.currentUser.id) {
+      } else if(list.contributors.indexOf(req.currentUser.id) > -1) {
         const entry = list.entries.id(req.params.entryId);
         const comment = entry.comments.id(req.params.commentId);
         comment.remove();
@@ -240,6 +243,28 @@ function entriesCommentsDelete(req, res) {
     .catch(err => res.render('error', { err }));
 }
 
+function listsShare(req, res) {
+  List
+    .findById(req.params.id)
+    .populate('author','contributors')
+    .exec()
+    .then(list => {
+      if(list.contributors.indexOf(req.currentUser.id) > -1) {
+        User
+          .findOne({ email: req.body.email })
+          .exec()
+          .then(user => {
+            list.contributors.push(user);
+            return list.save();
+          })
+          .catch(err => res.render('error', { err }));
+      } else {
+        res.render('error', { err: 'This is not your list'});
+      }
+      res.redirect(`/lists/${list.id}`);
+    })
+    .catch(err => res.render('error', { err }));
+}
 
 module.exports = {
   index: listsIndex,
@@ -253,5 +278,6 @@ module.exports = {
   entriesDelete: listsEntriesDelete,
   entriesUpdate: listsEntriesUpdate,
   commentsCreate: entriesCommentsCreate,
-  commentsDelete: entriesCommentsDelete
+  commentsDelete: entriesCommentsDelete,
+  share: listsShare
 };

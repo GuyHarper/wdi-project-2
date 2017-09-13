@@ -12,6 +12,26 @@
       <input type="hidden" name="_method" value="DELETE">
       <button class="button list-delete-button">Delete list</button>
     </form>
+
+    <button class="button modal-button">Share list</button>
+
+    <div class="modal">
+      <div class="modal-background">
+      </div>
+      <div class="modal-card">
+        <section class="modal-card-body">
+          <button class="button modal-button" aria-label="close"><i class="fa fa-window-close" aria-hidden="true"></i></button>
+          <form method="POST" action="/lists/<%= list.id %>/share" class="list-name-form">
+            <input type="hidden" name="_method" value="PUT">
+            <label for="share">Share this list with</label>
+            <input type="text" name="email" id="share" class="input" placeholder="Email address" autocomplete="off">
+            <button class="button">Share</button>
+          </form>
+          <button class="button modal-button">Cancel</button>
+        </section>
+      </div>
+    </div>
+
   <% } %>
 
   <ul>
