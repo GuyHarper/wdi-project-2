@@ -22,7 +22,7 @@ function registrationsCreate(req, res) {
           .catch(err => res.render('error', { err }));
       }
     })
-    .then(() => res.redirect('/'))
+    .then(() => res.redirect('/login'))
     .catch(err => res.render('error', { err }));
 }
 
