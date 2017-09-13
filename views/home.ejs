@@ -4,12 +4,28 @@
   </div>
   <div class="columns">
     <div class="column homepage">
-      <div>
-        <a href="#">make a list</a>
-      </div>
-      <div>
-        <a href="#">login</a>
-      </div>
+      <% if(!locals.isAuthenticated && !locals.listId) { %>
+        <div>
+          <a href="/lists/my-first-list">make a list</a>
+        </div>
+        <div>
+          <a href="/login">login</a>
+        </div>
+      <% } else if(!locals.isAuthenticated && locals.listId) { %>
+        <div>
+          <a href="/lists/<%= locals.listId %>">my list</a>
+        </div>
+        <div>
+          <a href="/login">login</a>
+        </div>
+        <% } else { %>
+          <div>
+            <a href="/lists">my lists</a>
+          </div>
+          <div>
+            <a href="/lists/new">make a list</a>
+          </div>
+      <% } %>
     </div>
   </div>
 </section>

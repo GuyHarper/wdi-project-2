@@ -8,26 +8,43 @@
   </form>
 
   <% if(locals.isAuthenticated) { %>
-    <form method="POST" action="/lists/<%= list.id %>">
-      <input type="hidden" name="_method" value="DELETE">
-      <button class="button list-delete-button">Delete list</button>
-    </form>
-
-    <button class="button modal-button">Share list</button>
+    <div class="columns delete-share-container">
+      <div class="column is-half">
+        <div class="columns">
+          <div class="column">
+            <button class="button modal-button">Share list</button>
+          </div>
+          <form method="POST" action="/lists/<%= list.id %>" class="column is-narrow">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="button list-delete-button">Delete list</button>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <div class="modal">
       <div class="modal-background">
       </div>
       <div class="modal-card">
         <section class="modal-card-body">
-          <button class="button modal-button" aria-label="close"><i class="fa fa-window-close" aria-hidden="true"></i></button>
-          <form method="POST" action="/lists/<%= list.id %>/share" class="list-name-form">
+          <div class="columns">
+            <div class="column">
+              <button class="button modal-button modal-close-button" aria-label="close"><i class="fa fa-window-close" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <form method="POST" action="/lists/<%= list.id %>/share" class="list-name-form" id="share-list-form">
             <input type="hidden" name="_method" value="PUT">
             <label for="share">Share this list with</label>
-            <input type="text" name="email" id="share" class="input" placeholder="Email address" autocomplete="off">
-            <button class="button">Share</button>
+            <input type="text" name="email" id="share" class="input modal-input" placeholder="Email address" autocomplete="off">
           </form>
-          <button class="button modal-button">Cancel</button>
+          <div class="columns share-cancel-container">
+            <div class="column is-narrow">
+              <button form="share-list-form" type="submit" class="button">Share</button>
+            </div>
+            <div class="column">
+              <button class="button modal-button cancel-button">Cancel</button>
+            </div>
+          </div>
         </section>
       </div>
     </div>
