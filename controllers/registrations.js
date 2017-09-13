@@ -16,6 +16,7 @@ function registrationsCreate(req, res) {
           .then(list => {
             if(list.entries.length > 0) {
               list.author = user;
+              list.contributors = [user];
               return list.save();
             }
           })
