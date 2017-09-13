@@ -22,7 +22,7 @@ function sessionsStart(req, res) {
   if(!req.session.listId) {
     List
       .create({
-        name: 'My first list',
+        name: 'my first list',
         entries: []
       })
       .then(list => {
