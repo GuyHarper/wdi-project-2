@@ -30,7 +30,7 @@ $listNameInput.on('focus',(e) => {
 $listNameInput.on('blur',(e) => {
   if(inputContents !== $(e.target).val() || !$(e.target).val()) {
     if(!$(e.target).val()) {
-      $(e.target).val('my list');
+      $(e.target).val('My list');
     }
     $listNameForm.submit();
   }
