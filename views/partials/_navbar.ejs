@@ -6,7 +6,7 @@
     <div class="navbar-start">
       <% if(!locals.isAuthenticated) { %>
         <% if(locals.listId) { %>
-          <a class="navbar-item" href="/lists/<%= locals.listId %>">my first list</a>
+          <a class="navbar-item" href="/lists/<%= locals.listId %>">my list</a>
         <% } else { %>
           <a class="navbar-item" href="/lists/my-first-list">make a list</a>
         <% } %>
