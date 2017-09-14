@@ -14,7 +14,16 @@ function sessionsCreate(req, res) {
         return res.redirect('/login');
       }
       req.session.userId = user.id;
-      res.redirect('/lists');
+      List
+        .find({ contributors: req.currentUser })
+        .exec()
+        .then(lists => {
+          if(lists.length === 0) {
+            res.redirect('/lists/new');
+          } else {
+            res.redirect('/lists');
+          }
+        });
     });
 }
 

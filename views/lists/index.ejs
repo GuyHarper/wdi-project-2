@@ -1,4 +1,10 @@
 <section class="container content is-large">
+  <% if(lists.length === 0) { %>
+    <div class="centered is-size-6">
+      <div>No lists to display</div>
+      <div><a href="/lists/new">Make a new list</a></div>
+    </div>
+  <% } %>
   <ul>
     <% lists.forEach(list => { %>
       <li><a href="/lists/<%= list.id %>"><%= list.name %></a></li>
