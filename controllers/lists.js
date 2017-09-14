@@ -23,6 +23,7 @@ function listsIndex(req, res) {
 
 
 function listsShow(req, res) {
+  console.log('got here - show');
   List
     .findById(req.params.id)
     .populate('author', 'contributors')
@@ -85,6 +86,7 @@ function listsCreate(req, res) {
   req.body.author = req.currentUser;
   req.body.contributors = [req.currentUser];
   let latestCreated = null;
+  console.log('got here - create');
   List
     .create(req.body)
     .then(() => {
@@ -92,15 +94,20 @@ function listsCreate(req, res) {
         .find({ author: req.currentUser })
         .exec()
         .then(lists => {
-          lists.reduce(function(a, b) {
-            if(!a) {
-              a = b;
-            }
-            if(b.createdAt > a.createdAt) {
-              a = b;
-            }
-            latestCreated = a;
-          });
+          if(lists.length > 1) {
+            lists.reduce(function(a, b) {
+              if(!a) {
+                a = b;
+              }
+              if(b.createdAt > a.createdAt) {
+                a = b;
+              }
+              latestCreated = a;
+              console.log(latestCreated);
+            });
+          } else {
+            latestCreated = lists[0];
+          }
         })
         .then(() => {
           res.redirect(`/lists/${latestCreated.id}`);
