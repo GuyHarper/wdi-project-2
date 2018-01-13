@@ -4,7 +4,7 @@
     <input type="hidden" name="_method" value="PUT">
     <label for="name" hidden>Name</label>
     <input type="text" name="name" id="name" value="<%= list.name %>" class="input is-large list-name-input" placeholder="list name" autocomplete="off"
-    <% if(!locals.isAuthenticated) { %>
+    <% if(!locals.isAuthenticated && !list.name) { %>
       autofocus
     <% } %>
     >
@@ -134,7 +134,7 @@
           <div class="control column">
             <label for="new-entry" hidden>Entry</label>
             <input type="text" name="text" id="new-entry" autocomplete="off" class="input is-medium" placeholder="Add entry"
-            <% if(locals.isAuthenticated) { %>
+            <% if(list.name) { %>
               autofocus
             <% } %>
             >
