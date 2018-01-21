@@ -1,9 +1,14 @@
 <nav class="navbar">
-  <div class="navbar-menu is-active">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/">expressLists</a>
-    </div>
-    <div class="navbar-start">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">expressLists</a>
+    <button class="navbar-burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-end">
       <% if(!locals.isAuthenticated) { %>
         <% if(locals.listId) { %>
           <a class="navbar-item" href="/lists/<%= locals.listId %>">my list</a>

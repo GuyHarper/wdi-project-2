@@ -72,39 +72,51 @@ input.input {
   }
 }
 
-button.button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: .5rem;
-  border: none;
-  color: $grey-light;
-  padding: .625em;
-  &.login {
-    margin-left: 0;
-  }
-  &.add-entry-button {
-    padding: 1.5em 1em;
-  }
-  &.comment-button {
-    padding: 2px;
-    margin-left: 3px;
-  }
-  &.comment-delete-button {
-    padding: 3px;
-  }
-  &.hidden {
-    display: none;
-  }
-  &:hover {
-    color: $grey;
-  }
-  &:active {
+button {
+  &.navbar-burger {
+    margin-left: auto;
     border: none;
-    box-shadow: none;
-    color: $grey-dark;
+    color: $grey-light;
+    padding: .625em;
+    &:focus {
+      outline: none;
+    }
+  }
+  &.button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: .5rem;
+    border: none;
+    color: $grey-light;
+    padding: .625em;
+    &.login {
+      margin-left: 0;
+    }
+    &.add-entry-button {
+      padding: 1.5em 1em;
+    }
+    &.comment-button {
+      padding: 2px;
+      margin-left: 3px;
+    }
+    &.comment-delete-button {
+      padding: 3px;
+    }
+    &.hidden {
+      display: none;
+    }
+    &:hover {
+      color: $grey;
+    }
+    &:active {
+      border: none;
+      box-shadow: none;
+      color: $grey-dark;
+    }
   }
 }
+
 
 .card {
   margin-bottom: 0.25rem;

@@ -9,6 +9,8 @@ const $listNameForm = $('.list-name-form');
 const $checkboxDiv = $('.checkbox-div');
 const $modalButton = $('.modal-button');
 const $modal = $('.modal');
+const $burgerButton = $('.navbar-burger');
+const $navbarMenu = $('.navbar-menu');
 
 let inputContents = null;
 
@@ -75,4 +77,9 @@ $commentInput.on('blur',(e) => {
     $commentForm.addClass('hidden');
     $addCommentButton.removeClass('hidden');
   }
+});
+
+$burgerButton.on('click', () => {
+  $burgerButton.toggleClass('is-active');
+  $navbarMenu.toggleClass('is-active');
 });
