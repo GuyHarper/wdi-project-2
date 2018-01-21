@@ -15,9 +15,10 @@ function sessionsCreate(req, res) {
       }
       req.session.userId = user.id;
       List
-        .find({ contributors: req.currentUser })
+        .find({ contributors: user })
         .exec()
         .then(lists => {
+          console.log('lists: ', lists);
           if(lists.length === 0) {
             res.redirect('/lists/new');
           } else {
