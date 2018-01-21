@@ -1,4 +1,4 @@
-<section class="container content">
+<section class="container content list-container">
   <h1>Edit</h1>
   <form method="POST" action="/lists/<%= list.id %>">
     <input type="hidden" name="_method" value="PUT">
@@ -9,9 +9,9 @@
   <ul>
     <% list.entries.forEach(entry => { %>
       <div class="columns">
-      <li class="card column is-half">
+      <li class="card column is-two-thirds">
       <div class="columns is-multiline is-mobile">
-        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column is-half">
+        <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column is-two-thirds">
         <div class="columns is-mobile">
           <input type="hidden" name="_method" value="PUT">
           <div class="field column">
@@ -62,7 +62,7 @@
 </div>
     <% }) %>
     <div class="columns">
-    <li class="card column is-half">
+    <li class="card column is-two-thirds">
       <form method="POST" action="/lists/<%= list.id %>/entries" class="columns is-multiline is-mobile">
         <input type="hidden" name="_method" value="PUT">
         <div class="control column">

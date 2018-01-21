@@ -1,4 +1,4 @@
-<section class="container content">
+<section class="container content list-container">
 
   <form method="POST" action="/lists/<%= list.id %>" class="list-name-form">
     <input type="hidden" name="_method" value="PUT">
@@ -13,7 +13,7 @@
 
   <% if(locals.isAuthenticated) { %>
     <div class="columns delete-share-container">
-      <div class="column is-half">
+      <div class="column is-two-thirds">
         <div class="columns">
           <div class="column">
             <button class="button modal-button">Invite someone to contribute to this list</button>
@@ -60,7 +60,7 @@
       <% return entry.active; %>
     <% }).forEach(entry => { %>
       <li class="columns card-container">
-        <div class="card column is-half">
+        <div class="card column is-two-thirds">
           <div class="columns is-gapless is-multiline is-mobile">
 
             <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column justify-content-center is-narrow entry-active-update-form">
@@ -127,7 +127,7 @@
       </li>
     <% }) %>
     <li class="columns">
-      <div class="card column is-half">
+      <div class="card column is-two-thirds">
         <form method="POST" action="/lists/<%= list.id %>/entries" class="columns is-multiline is-mobile">
           <input type="hidden" name="_method" value="PUT">
           <input type="hidden" name="active" value="true">
@@ -151,7 +151,7 @@
       <% return !entry.active; %>
     <% }).forEach(entry => { %>
       <li class="columns card-container">
-        <div class="card column is-half inactive">
+        <div class="card column is-two-thirds inactive">
           <div class="columns is-gapless is-multiline is-mobile">
 
             <form method="POST" action="/lists/<%= list.id %>/entries/<%= entry.id %>" class="column justify-content-center is-narrow entry-active-update-form">
